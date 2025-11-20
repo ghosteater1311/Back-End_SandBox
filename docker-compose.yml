@@ -1,0 +1,40 @@
+version: '3.8'
+
+services:
+  strapi:
+    image: strapi/strapi:latest
+    ports:
+      - "1337:1337"
+    environment:
+      - NODE_ENV=production
+      - STRAPI_ADMIN_PATH=/admin
+      - DATABASE_URL=${DATABASE_URL}
+      - ADMIN_JWT_SECRET=${ADMIN_JWT_SECRET}
+      - TRANSFER_TOKEN_SALT=${TRANSFER_TOKEN_SALT}
+    volumes:
+      - ./strapi-data:/srv/app
+    depends_on:
+      - postgres
+    networks:
+      - strapi-network
+    restart: unless-stopped
+
+  postgres:
+    image: postgres:15-alpine
+    environment:
+      - POSTGRES_USER=${DB_USER:-strapi}
+      - POSTGRES_PASSWORD=${DB_PASSWORD:-strapi}
+      - POSTGRES_DB=${DB_NAME:-strapi}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    networks:
+      - strapi-network
+    restart: unless-stopped
+
+volumes:
+  strapi-data:
+  postgres-data:
+
+networks:
+  strapi-network:
+    driver: bridge
