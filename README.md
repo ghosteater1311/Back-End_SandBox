@@ -188,6 +188,34 @@ See **TESTING.md** for detailed steps.
 
 ---
 
+## 🧩 Local Database Development (Neon Local Connect)
+If you want to develop Strapi locally without affecting production data, the **recommended database workflow** is:
+
+### ✅ Use Neon Development Branch
+- Create a **dev branch** in Neon
+- This isolates experimental data and schema changes
+- Safe for testing, breaking things, deleting tables, etc.
+
+### ✅ Use VS Code *Neon Local Connect* Extension
+This extension creates a secure local proxy so Strapi connects like this:
+```
+Strapi (Docker) → localhost:5432 → Neon Cloud (dev branch)
+```
+You get the speed of local DB + the safety of cloud isolation.
+
+### ✔️ Example `.env` for Local Development
+```
+DATABASE_URL=postgresql://user:password@localhost:5432/your_dev_branch
+```
+
+### 🔥 Benefits
+- No need to install PostgreSQL locally
+- Does *not* touch production or main DB branch
+- Low latency & stable connection
+- Safe environment for testing new collections
+
+---
+
 ## 🚀 Deployment
 Your backend can be deployed to:
 - Railway
