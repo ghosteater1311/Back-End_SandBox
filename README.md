@@ -16,8 +16,6 @@ A **production-ready** E-Commerce backend using **Strapi CMS**, **Docker**, and 
 
 ## ⚙️ Prerequisites 
 
-* No backend coding required! ✨
-
 Before you start, make sure you have these installed and configured:
 
 
